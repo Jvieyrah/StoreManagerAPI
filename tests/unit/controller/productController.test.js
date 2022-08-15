@@ -99,9 +99,121 @@ describe('Testa se o model.getAll', () => {
       expect(response.status.calledWith(404)).to.be.equal(true);
     });
 
-  //   it('passando a mensagem "Not Found', async () => {
-  //     await productController.findByID(request, response);
-  //     expect(response.json.calledWith('Not Product not found')).to.be.equal(true);
+  });
+
+describe('Testa se o model.create retorna um array de objetos com o id ', async () => {
+  describe('Caso o id seja encontrado', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {   
+      request.body = {
+        name: 'ProdutoZ',
+      };
+     
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(productService, 'create').resolves(
+        [{
+          "id": 1,
+          "name": "ProdutoZ",
+        }]
+      );
+    });
+
+    after(() => {
+
+      sinon.restore();
+    });
+    it('Retorna array cheio', async () => {
+      await productController.create(request, response);
+      expect(response.status.calledWith(201)).to.be.equal(true);
+    });
+     it('Retorna um id', async () => {
+      await productController.create(request, response);
+       expect(response.json).to.have.a.property('id');
+    });
+  });
+
+  // describe('Caso o name não seja informado', () => {
+
+  //   const response = {};
+  //   const request = {};
+
+  //   before(() => {
+  //     request.body = {
+  //       name: '',
+  //     };
+
+  //     response.status = sinon.stub()
+  //       .returns(response);
+  //     response.json = sinon.stub()
+  //       .returns();
+
+  //     sinon.stub(productService, 'create').resolves(null);
   //   });
-  //  });
+  //   after(() => {
+
+  //     sinon.restore();
+  //   });
+  //   it('é chamado o método "status" passando 400', async () => {
+  //     await productController.create(request, response);
+  //     expect(response.status.calledWith(400)).to.be.equal(true);
+  //   });
+  // });
+  // describe('Caso o name seja informado com menos de 5 letras', () => {
+      
+  //     const response = {};
+  //     const request = {};
+  
+  //     before(() => {
+  //       request.body = {
+  //         name: 'test',
+  //       };
+  
+  //       response.status = sinon.stub()
+  //         .returns(response);
+  //       response.json = sinon.stub()
+  //         .returns();
+  
+  //       sinon.stub(productService, 'create').resolves(null);
+  //     }).after(() => {
+  
+  //       sinon.restore();
+  //     });
+  //     it('é chamado o método "status" passando 422', async () => {
+  //       await productController.create(request, response);
+  //       expect(response.status.calledWith(400)).to.be.equal(true);
+  //     }).after(() => {
+  //       sinon.restore();
+  //     }
+  //     it('é chamado o método "status" passando 400', async () => {
+  //       await productController.create(request, response);
+  //       expect(response.status.calledWith(400)).to.be.equal(true);
+  //     }).after(() => {
+  //       sinon.restore();
+  //     }
+  //     it('é chamado o método "status" passando 400', async () => {
+  //       await productController.create(request, response);
+  //       expect(response.status.calledWith(400)).to.be.equal(true);
+  //     }).after(() => {
+  //       sinon.restore();
+  //     }
+  //     it('é chamado o método "status" passando 400', async () => {
+  //       await productController.create(request, response);
+  //       expect(response.status.calledWith(400)).to.be.equal(true);
+  //     }).after(() => {
+  //       sinon.restore();
+  //     }
+  //     it('é chamado o método "status" passando 400', async () => {
+  //       await productController.create(request, response);
+  //       expect(response.status.calledWith(400)).to.be.equal(true);
+  //     }).after(() => {
+  //       sinon.restore();
+  //     }
+  //     it('
 });
+

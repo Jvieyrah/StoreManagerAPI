@@ -105,28 +105,39 @@ describe('Testa se o model.findById retorna um array de objetos com o id ', asyn
       expect(resultado).to.have.a.property('id');
     });
   });
+});
 
-  // describe('Caso o id não seja encontrado', () => {
+describe('Testa se o model.create retorna um array de objetos com o id ', async () => {
+  describe('Caso o id seja encontrado', () => {
 
-  //   before(() => {
-  //     const resultExecute = [[]];
-  //     sinon.stub(connection, 'execute').resolves(resultExecute);
-  //   })
+    before(() => {
+      const resultExecute = [{
+        "id": 1,
+        "name": "ProdutoZ"
+      }];
+      sinon.stub(connection, 'execute').resolves(resultExecute);
+    });
 
-  //   after(() => {
+    after(() => {
 
-  //     sinon.restore();
-  //   })
+      sinon.restore();
+    })
+    it('Retorna array cheio', async () => {
+      const resultado = await productModel.create('ProdutoZ');
+      expect(resultado).to.be.an('object');
+    }
+    );
+    it('Retorna array cheio', async () => {
+      const resultado = await productModel.create('ProdutoZ');
+      expect(resultado).to.be.not.empty;
 
-  //   it('Retorna array cheio', async () => {
-  //     const resultado = await productModel.findByID(99);
-  //     expect(resultado).to.be.false;
-  //   });
-
-    // it('Retorna array cheio', async () => {
-    //   const resultado = await productModel.findByID(1);
-    //   expect(resultado).to.be.empty;
-
-    // });
-  //  });
+    }
+    );
+    it('Retorna um id', async () => {
+      const resultado = await productModel.create('ProdutoZ');
+      expect(resultado).to.have.a.property('id');
+    }
+    );
+  }
+  );
 });

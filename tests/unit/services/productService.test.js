@@ -15,7 +15,7 @@ describe('Testa se o model.getAll retorna um array de objetos com id e name', ()
       [],
       ];
       sinon.stub(productModel, 'getAll').resolves(resultExecute);
-    })
+    });
 
     after(() => {
       
@@ -49,12 +49,12 @@ describe('Testa se o model.getAll retorna um array de objetos com id e name', ()
     before(() => {
       const resultExecute = [];
       sinon.stub(productModel, 'getAll').resolves(resultExecute);
-    })
+    });
 
     after(() => {
 
       sinon.restore();
-    })
+    });
     it('retorna array', async () => {
       // AAA - ARRANGE - ACT - ASSERT  
       const resultado = await productService.getAll();    
@@ -87,7 +87,7 @@ describe('Testa se o model.findById retorna um array de objetos com o id ', asyn
     after(() => {
 
       sinon.restore();
-    })
+    });
 
     it('Retorna array cheio', async () => {
       const resultado = await productService.findByID(1);
@@ -105,27 +105,33 @@ describe('Testa se o model.findById retorna um array de objetos com o id ', asyn
     });
   });
 
-  // describe('Caso o id não seja encontrado', () => {
+  describe('Testa se o model.create retorna um array de objetos com o id ', async () => {
+    describe('Caso o id seja encontrado', () => {
 
-  //   before(() => {
-  //     const resultExecute = [[]];
-  //     sinon.stub(productModel, 'getAll').resolves(resultExecute);
-  //   })
+      before(() => {
+        const resultExecute = [{
+          "id": 1,
+          "name": "ProdutoZ"
+        }];
+        sinon.stub(productModel, 'create').resolves(resultExecute);
+      });
 
-  //   after(() => {
+      after(() => {
 
-  //     sinon.restore();
-  //   })
-
-  //   it('Retorna array cheio', async () => {
-  //     const resultado = await productModel.findByID(99);
-  //     expect(resultado).to.be.false;
-  //   });
-
-    // it('Retorna array cheio', async () => {
-    //   const resultado = await productModel.findByID(1);
-    //   expect(resultado).to.be.empty;
-
-    // });
-  //  });
+        sinon.restore();
+      });
+      it('Retorna array cheio', async () => {
+        const resultado = await productService.create('ProdutoZ');
+        expect(resultado).to.be.an('array');
+      });
+      it('Retorna array cheio', async () => {
+        const resultado = await productService.create('ProdutoZ');
+        expect(resultado).to.be.not.empty;
+      });
+      it('Retorna um id', async () => {
+        const resultado = await productService.create('ProdutoZ');
+        expect(resultado[0]).to.have.a.property('id');
+      });
+    });
+  });
 });
