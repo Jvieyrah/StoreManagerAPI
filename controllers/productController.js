@@ -28,4 +28,16 @@ const findByID = async (req, res) => {
   }
 };
 
-module.exports = { getAll, findByID };
+const create = async (req, res) => {
+  try {
+    const { name } = req.body;
+    console.log(name);
+    const resultado = await productService.create(name);
+    return res.status(201).json(resultado);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(ERROR_500);
+  }
+};
+
+module.exports = { getAll, findByID, create };

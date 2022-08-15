@@ -32,13 +32,18 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products",
-    "url": "http://localhost:3000/products/2",
-    "method": "GET",
+    "url": "http://localhost:3000/products",
+    "method": "POST",
     "sortNum": 0,
     "created": "2022-08-14T21:27:37.209Z",
-    "modified": "2022-08-14T23:26:04.276Z",
+    "modified": "2022-08-15T21:11:33.515Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": " {\n    \"name\": \"ProdutoX\"\n }",
+      "form": []
+    },
     "tests": []
   }
 ]
