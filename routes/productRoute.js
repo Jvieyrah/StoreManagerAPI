@@ -1,12 +1,12 @@
 const express = require('express');
 // const router = express.Router();
 const productController = require('../controllers/productController');
-const validate = require('../middlewares/validate');
+const validateProduct = require('../middlewares/validateProduct');
 
 const productRoute = express.Router();
 
 productRoute.get('/', productController.getAll);
 productRoute.get('/:id', productController.findByID);
-productRoute.post('/', validate.productValidator, productController.create);
+productRoute.post('/', validateProduct.productValidator, productController.create);
 
 module.exports = productRoute;
