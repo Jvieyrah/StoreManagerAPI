@@ -1,7 +1,7 @@
 const connection = require('./connection');
 
 const createSales = async (products) => {
-    try {
+    // try {
     const sales = `
     INSERT INTO StoreManager.sales(date)
     VALUES (now())`;
@@ -19,13 +19,37 @@ const createSales = async (products) => {
     });
 
     return { id: result.insertId, itemsSold: products };
-  } catch (error) {
-    return error;
-  }
+  // } catch (error) {
+  //   return error;
+  // }
+};
+
+const getAll = async () => {
+  const [result] = await connection
+    .execute(`SELECT sale_id AS saleId, product_id AS productId, quantity, date
+      FROM StoreManager.sales_products
+      JOIN StoreManager.products
+      ON StoreManager.sales_products.product_id = StoreManager.products.id
+      JOIN StoreManager.sales
+      ON StoreManager.sales_products.sale_id = StoreManager.sales.id; `);
+  return result;
+};
+
+const getById = async (id) => {
+  const [result] = await connection.execute(`SELECT product_id AS productId, quantity, date
+      FROM StoreManager.sales_products
+      JOIN StoreManager.products
+      ON StoreManager.sales_products.product_id = StoreManager.products.id
+      JOIN StoreManager.sales
+      ON StoreManager.sales_products.sale_id = StoreManager.sales.id
+      WHERE sale_id = ?;`, [id]);
+  return result;
 };
 
 module.exports = {
-  createSales,
+  createSales, 
+  getAll,
+  getById,
 };
 // const createSale = async () => { 
 //   const query = 'INSERT INTO sales () VALUES ()';

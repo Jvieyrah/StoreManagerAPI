@@ -1,9 +1,28 @@
 const salesModel = require('../models/salesModel');
+const ProductService = require('./productService');
 
 const create = async (products) => {
-  const result = await salesModel.createSales(products);
-  console.log(result);
+  const productsList = await ProductService.getAll();
+  const registeredIds = productsList.map((product) => product.id);
+  const productsIds = products.map((product) => product.productId);
+  const test = productsIds.map((id) => registeredIds.includes(id));
+  const invalidId = test.some((id) => id === false);
+   if (invalidId === false) {
+    const result = await salesModel.createSales(products);
+     console.log(result);
+     return result;
+   }
+    return false;
+};
+
+const getAll = async () => {
+  const result = await salesModel.getAll();
   return result;
 };
 
-module.exports = { create };
+const getById = async (id) => {
+  const result = await salesModel.getById(id);
+  return result;
+};
+
+module.exports = { create, getAll, getById };
