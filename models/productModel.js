@@ -19,4 +19,10 @@ const create = async (name) => {
   return { id: result.insertId, name };
 };
 
-module.exports = { getAll, findByID, create };
+const update = async (id, name) => {
+  const query = 'UPDATE products SET name = ? WHERE id = ?';
+  await connection.execute(query, [name, id]);
+  return { id, name };
+};
+
+module.exports = { getAll, findByID, create, update };

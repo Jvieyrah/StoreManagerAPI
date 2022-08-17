@@ -15,4 +15,12 @@ const create = async (name) => {
   return resultado;
 };
 
-module.exports = { getAll, findByID, create };
+const update = async (id, name) => {
+  const productExixts = await productModel.findByID(id);
+  if (!productExixts) return false;
+  const resultado = await productModel.update(id, name);
+  console.log(resultado);
+  return resultado;
+};
+
+module.exports = { getAll, findByID, create, update };

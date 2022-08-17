@@ -40,4 +40,17 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { getAll, findByID, create };
+const update = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const { id } = req.params;
+    const resultado = await productService.update(id, name);
+    if (!resultado) return res.status(404).json({ message: 'Product not found' });
+    return res.status(200).json(resultado);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(ERROR_500);
+  }
+};
+
+module.exports = { getAll, findByID, create, update };
