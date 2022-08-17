@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
 };
 
 const getById = async (req, res) => {
-  const [id] = req.params;
+  const { id } = req.params;
   const result = await salesService.getById(id);
   console.log(result.length);
   if (result.length === 0) { 
