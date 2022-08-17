@@ -31,9 +31,9 @@ describe('Retorna todas as vendas', () => {
         const sales = [{ saleId: 1, productId: 1, quantity: 1 }];
         sinon.stub(connection, 'execute').resolves(sales);
         const result = await salesModel.getAll();
-        expect(result).to.be.an('array');
-        expect(result[0]).to.have.a.property('saleId');
-        expect(result[0]).to.have.a.property('productId');
+        expect(result).to.be.an('object');
+        expect(result).to.have.a.property('saleId');
+        expect(result).to.have.a.property('productId');
       }).timeout(5000);
     });
   });
@@ -47,10 +47,9 @@ describe('Retorna uma venda pelo id', () => {
         const sale = [{ saleId: 1, productId: 1, quantity: 1 }];
         sinon.stub(connection, 'execute').resolves(sale);
         const result = await salesModel.getById(1);
-        expect(result).to.be.an('array');
-        expect(result[0]).not.to.have.a.property('saleId');
-        expect(result[0]).to.have.a.property('productId');
-        expect(result[0]).to.have.a.property('quantity');
+        expect(result).to.be.an('object');
+        expect(result).to.have.a.property('productId');
+        expect(result).to.have.a.property('quantity');
       }).timeout(5000);
     });
 });

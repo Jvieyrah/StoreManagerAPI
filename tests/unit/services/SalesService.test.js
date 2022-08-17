@@ -13,8 +13,8 @@ describe('SalesService repassa uma nova venda para o model', () => {
         const products = [{ productId: 1, quantity: 1 }];
         sinon.stub(salesModel, 'createSales').resolves(products);
         const result = await salesService.create(products);
-        expect(result).to.have.a.property('id');
-        expect(result).to.have.a.property('itemsSold');
+        expect(result[0]).to.have.a.property('productId');
+        expect(result[0]).to.have.a.property('quantity');
       }).timeout(5000);
     });
   
@@ -44,7 +44,6 @@ describe('SalesService repassa uma nova venda para o model', () => {
           sinon.stub(salesModel, 'getById').resolves(sale);
           const result = await salesService.getById(1);
           expect(result).to.be.an('array');
-          expect(result[0]).not.to.have.a.property('saleId');
           expect(result[0]).to.have.a.property('productId');
           expect(result[0]).to.have.a.property('quantity');
         }).timeout(5000);
