@@ -46,11 +46,18 @@ const getById = async (id) => {
   return result;
 };
 
+const destroy = async (id) => {
+  await connection.execute(`DELETE FROM StoreManager.sales_products
+      WHERE sale_id = ?;`, [id]);
+  return true;
+};
+  
 module.exports = {
   createSales, 
   getAll,
   getById,
-};
+  destroy,
+  };
 // const createSale = async () => { 
 //   const query = 'INSERT INTO sales () VALUES ()';
 //   const [result] = await connection.execute(query, [ userId, total ]);

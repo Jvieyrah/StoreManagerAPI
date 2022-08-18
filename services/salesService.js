@@ -25,4 +25,13 @@ const getById = async (id) => {
   return result;
 };
 
-module.exports = { create, getAll, getById };
+const destroy = async (id) => {
+  const isThereSale = await salesModel.getById(id);
+  if (isThereSale.length === 0) {
+    return false;
+  }
+  const result = await salesModel.destroy(id);
+  return result;
+};
+
+module.exports = { create, getAll, getById, destroy };

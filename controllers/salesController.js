@@ -24,4 +24,13 @@ const getById = async (req, res) => {
   return res.status(200).json(result);
 };
 
-module.exports = { create, getAll, getById };
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  const result = await salesService.destroy(id);
+  if (result === false) {
+    return res.status(404).json({ message: 'Sale not found' });
+  }
+  return res.status(204).json();
+};
+
+  module.exports = { create, getAll, getById, destroy };
