@@ -23,4 +23,11 @@ const update = async (id, name) => {
   return resultado;
 };
 
-module.exports = { getAll, findByID, create, update };
+const destroy = async (id) => {
+  const productExixts = await productModel.findByID(id);
+  if (!productExixts) return false;
+  const resultado = await productModel.destroy(id);
+  return resultado;
+};
+
+module.exports = { getAll, findByID, create, update, destroy };
