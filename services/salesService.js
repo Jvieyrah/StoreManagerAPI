@@ -42,8 +42,8 @@ const update = async (id, products) => {
   const productsList = await ProductService.getAll();
   const registeredIds = productsList.map((product) => product.id);
   const productsIds = products.map((product) => product.productId);
-  const test = productsIds.map((id) => registeredIds.includes(id));
-  const invalidId = test.some((id) => id === false);
+  const test = productsIds.map((idz) => registeredIds.includes(idz));
+  const invalidId = test.some((idx) => idx === false);
   if (invalidId === false) {
     const result = await salesModel.update(id, products);
     console.log(result);

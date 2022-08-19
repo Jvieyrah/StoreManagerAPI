@@ -54,8 +54,9 @@ const destroy = async (id) => {
 
 const update = async (id, products) => {
   products.forEach(async (product) => {
-    const saleProducts = `UPDATE StoreManager.sales_products SET product_id = ?, quantity = ? WHERE sale_id = ? AND product_id = ?;`;
-    const [result] = await connection.query(saleProducts, [
+    const saleProducts = `UPDATE StoreManager.sales_products SET product_id = ?,
+     quantity = ? WHERE sale_id = ? AND product_id = ?;`;
+    await connection.query(saleProducts, [
       product.productId,
       product.quantity,
       id,

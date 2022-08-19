@@ -30,4 +30,13 @@ const destroy = async (id) => {
   return resultado;
 };
 
-module.exports = { getAll, findByID, create, update, destroy };
+const search = async (name) => {
+  if (name.lenght === 0) {
+    const products = await productModel.getAll();
+    return products;
+  }
+  const resultado = await productModel.search(name);
+  return resultado;
+};
+
+module.exports = { getAll, findByID, create, update, destroy, search };

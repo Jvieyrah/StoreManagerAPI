@@ -38,25 +38,4 @@ async function saleValidator(req, res, next) {
   }
 }
 
-async function saleUpdateValidator(req, res, next) {
-  const products = req.body;
-  const invalidEmptyId = products.some(isInvalidEmptyId);
-  const invalidEmptyQuantity = products.some(isInvalidEmptyQuantity);
-  const invalidQuantity = products.some(isInvalidQuantity);
-
-  switch (true) {
-    case invalidEmptyId:
-      return res.status(400).json({ message: '"productId" is required' });
-    case invalidEmptyQuantity:
-      return res.status(400).json({ message: '"quantity" is required' });
-    case invalidQuantity:
-      return res.status(422)
-        .json({ message: '"quantity" must be greater than or equal to 1' });
-    default:
-      next();
-  }
-}
-
-
-
-module.exports = { saleValidator, saleUpdateValidator };
+module.exports = { saleValidator };

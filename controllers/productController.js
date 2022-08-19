@@ -65,4 +65,16 @@ const destroy = async (req, res) => {
   }
 }; 
 
-module.exports = { getAll, findByID, create, update, destroy };
+const search = async (req, res) => {
+  const { q } = req.query;
+  try {
+    const resultado = await productService.search(q);
+    // if (resultado.length === 0) resultado = await productService.getAll();
+    return res.status(200).json(resultado);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(ERROR_500);
+  }
+};
+
+module.exports = { getAll, findByID, create, update, destroy, search };
