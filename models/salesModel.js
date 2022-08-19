@@ -51,12 +51,27 @@ const destroy = async (id) => {
       WHERE sale_id = ?;`, [id]);
   return true;
 };
+
+const update = async (id, products) => {
+  products.forEach(async (product) => {
+    const saleProducts = `UPDATE StoreManager.sales_products SET product_id = ?, quantity = ? WHERE sale_id = ? AND product_id = ?;`;
+    const [result] = await connection.query(saleProducts, [
+      product.productId,
+      product.quantity,
+      id,
+      product.productId,
+    ]);
+  });
+
+  return { saleId: id, itemsUpdated: products };
+};
   
 module.exports = {
   createSales, 
   getAll,
   getById,
   destroy,
+  update,
   };
 // const createSale = async () => { 
 //   const query = 'INSERT INTO sales () VALUES ()';

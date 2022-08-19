@@ -33,4 +33,17 @@ const destroy = async (req, res) => {
   return res.status(204).json();
 };
 
-  module.exports = { create, getAll, getById, destroy };
+const update = async (req, res) => {
+  const { id } = req.params;
+  const products = req.body;
+  const result = await salesService.update(id, products);
+  if (result === 'Sale not found') {
+    return res.status(404).json({ message: result });
+  }
+  if (result === 'Product not found') {
+    return res.status(404).json({ message: result });
+  }
+  return res.status(200).json(result);
+};
+
+  module.exports = { create, getAll, getById, destroy, update };

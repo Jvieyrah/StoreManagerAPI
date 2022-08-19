@@ -34,4 +34,22 @@ const destroy = async (id) => {
   return result;
 };
 
-module.exports = { create, getAll, getById, destroy };
+const update = async (id, products) => {
+  const isThereSale = await salesModel.getById(id);
+  if (isThereSale.length === 0) {
+    return 'Sale not found';
+  }
+  const productsList = await ProductService.getAll();
+  const registeredIds = productsList.map((product) => product.id);
+  const productsIds = products.map((product) => product.productId);
+  const test = productsIds.map((id) => registeredIds.includes(id));
+  const invalidId = test.some((id) => id === false);
+  if (invalidId === false) {
+    const result = await salesModel.update(id, products);
+    console.log(result);
+    return result;
+  }
+  return 'Product not found';
+};
+
+module.exports = { create, getAll, getById, destroy, update };
